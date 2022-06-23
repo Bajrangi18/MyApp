@@ -55,5 +55,20 @@
   <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1160.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
-  <script type="module" src="app.js"></script>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js'
+  import { getDatabase, ref, set  } from "https://www.gstatic.com/firebasejs/9.7.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCZyWPmFktra6v3pJnuy5mN_FCUYTsVumE",
+    authDomain: "autopark-f61ef.firebaseapp.com",
+    databaseURL: "https://autopark-f61ef-default-rtdb.firebaseio.com",
+    projectId: "autopark-f61ef",
+    storageBucket: "autopark-f61ef.appspot.com",
+    messagingSenderId: "164346234866",
+    appId: "1:164346234866:web:a8fb9a635091dbfe5c8d6b",
+    measurementId: "G-M0KXQNBN1W"
+  };
+  </script>
+  <script src="app.js"></script>
 </html>
