@@ -1,61 +1,192 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Auto Park</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Park-O-Pedia</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script> -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
-  <body><center>
-    <section class="vh-100" style="background-color: #508bfc;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-        <div class="card shadow-2-strong" style="border-radius: 1rem;">
-          <div class="card-body p-5 text-center">
-
-            <h3 class="mb-5">Sign in</h3>
-
-            <div class="form-outline mb-4">
-              <input type="email" id="typeEmailX-2" class="form-control form-control-lg" />
-              <label class="form-label" for="typeEmailX-2">Email</label>
-            </div>
-
-            <div class="form-outline mb-4">
-              <input type="password" id="typePasswordX-2" class="form-control form-control-lg" />
-              <label class="form-label" for="typePasswordX-2">Password</label>
-            </div>
-
-            <!-- Checkbox -->
-            <div class="form-check d-flex justify-content-start mb-4">
-              <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
-              <label class="form-check-label" for="form1Example3"> Remember password </label>
-            </div>
-
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
-
-            <hr class="my-4">
-
-            <button class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;"
-              type="submit"><i class="fab fa-google me-2"></i> Sign in with google</button>
-            <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;"
-              type="submit"><i class="fab fa-facebook-f me-2"></i>Sign in with facebook</button>
-
-          </div>
+  <body>
+        <div class="container" id="bookSlot">
+          slot book
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-    </center>
+        <div class="container" id="searchSlot">
+                    <center><br>
+                                  <select class="form-select" aria-label="Default select example" id="listSpaces">
+                                  <option selected>Choose Parking Space</option>
+                                  <option value="A">Parking A</option>
+                                  <option value="B">Parking B</option>
+                                  <option value="C">Parking C</option>
+                                 </select><br>
+                                 <p id="headerSpace"> Parking Spaces Available </p>
+                                 <br>
+                                 <p id="freeSlot">0</p>
+                  </center>
+        </div>
+        <div class="container" id="qrScanner"><br>
+                      <center><p id="headerSpace">On-Spot Booking</p></center>
+                  <div class="container-flex" id="onSpot"><br><center>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+                    <input class="form-control" type="text" placeholder="Enter Phone Number" aria-label="default input example" id="phoneNo"><br></center>
+                   <div class="container" id="spotBook"><center><br>
 
-    <script type="module" src="app.js"></script>
+                                 <div id="reader" width="300px"></div>
+                   </center></div>
+
+                  </div>
+        </div>
+        <div class="container" id="fare">
+                  <br><center>
+                  <p id="headerSpace"> Current Fare </p></center>
+                  <br><center>
+                    <div class="container" id="farePrice">
+                      <div class="container" style="  font-family: 'Open Sans', sans-serif;
+                        font-size: 15vw;
+                        font-weight: 600;">
+                                            <div class="row align-items-start">
+                                              <div class="col">
+                                                 INR
+                                                </div>
+                                                <div class="col" id="priceVal">
+                                                  0
+                                                </div>
+                                              </div>
+                                            </div>
+                    </div><br>
+                    <div class="container" id="farePrice">
+                           <p style="  font-family: 'Open Sans', sans-serif;
+                             font-size: 10vw;
+                             font-weight: 400;">Parking Space</p>
+                            <p>- -</p>
+                            <p style="  font-family: 'Open Sans', sans-serif;
+                              font-size: 10vw;
+                              font-weight: 400;">Parking Slot</p>
+                            <p>- -</p>
+                            <p style="  font-family: 'Open Sans', sans-serif;
+                              font-size: 10vw;
+                              font-weight: 400;">Parking Status</p>
+                            <p>- -</p>
+                    </div><br>
+                    <input type="image" height="30%" width="50%" src="rzp.svg" id="rzp-button1">
+                  </center>
+        </div>
+        <div class="container" id="login">
+          Login Page
+        </div>
+
+
+    <nav class="navbar" id="menuNav">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#" id="bookPress">
+              <img src="book.png" alt="" width="40" height="40">
+            </a>
+            <a class="navbar-brand" href="#" id="availPress">
+              <img src="free.png" alt="" width="40" height="40">
+            </a>
+            <a class="navbar-brand" href="#" id="qrPress">
+              <img src="qr.png" alt="" width="50" height="50">
+            </a>
+            <a class="navbar-brand" href="#" id="farePress">
+              <img src="park.png" alt="" width="40" height="40">
+            </a>
+            <a class="navbar-brand" href="#" id="loginPress">
+              <img src="log.png" alt="" width="40" height="40">
+            </a>
+          </div>
+</nav>
+
+            <div class="toast-container position-fixed bottom-0 end-0 p-3 top-50 start-50 translate-middle">
+              <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                  <img src="park.png" class="rounded me-2" alt="...">
+                  <strong class="me-auto" id="toastBod"></strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+              </div>
+            </div>
   </body>
+  <script>
+  var orderId ;
+  // $("button").hide();
 
+  $(document).ready(function(){
+      var settings = {
+    "url": "/create/orderId",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "data": JSON.stringify({
+      "amount": "100"
+    }),
+  };
+
+  //creates new orderId everytime
+  $.ajax(settings).done(function (response) {
+
+    orderId=response.orderId;
+    console.log(orderId);
+    $("button").show();
+  });
+  });
+
+  document.getElementById('rzp-button1').onclick = function(e){
+    var options = {
+      "key": "rzp_test_atjailqWnw6Uo4", // Enter the Key ID generated from the Dashboard
+      "amount": "100", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Park-O-Pedia",
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": function (response){
+          alert(response.razorpay_payment_id);
+          alert(response.razorpay_order_id);
+          alert(response.razorpay_signature)
+          var settings = {
+           "url": "/api/payment/verify",
+           "method": "POST",
+           "timeout": 0,
+           "headers": {
+           "Content-Type": "application/json"
+     },
+     "data": JSON.stringify({response}),
+   }
+
+   $.ajax(settings).done(function (response) {
+      alert(JSON.stringify(response));
+    });
+
+  },
+
+        "theme": {
+          "color": "#3399cc"
+         }
+  };
+  var rzp1 = new Razorpay(options);
+  rzp1.on('payment.failed', function (response){
+         alert(response.error.code);
+         alert(response.error.description);
+         alert(response.error.source);
+         alert(response.error.step);
+         alert(response.error.reason);
+         alert(response.error.metadata.order_id);
+         alert(response.error.metadata.payment_id);
+  });
+
+  rzp1.open();
+    e.preventDefault();
+  }
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+<script type="module" src="app.js"></script>
 </html>
